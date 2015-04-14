@@ -18,21 +18,20 @@
  * Incoming Code:        -
  *
  */
+/* Cameras-specific common overrides */
 
- /* Cameras-specific common overrides */
-
-ul, li {
+ul,
+li {
   margin: 0;
   padding: 0;
 }
 
 .active {
+  color: initial;
   background: none;
   background-image: none;
   text-shadow: none;
-  color: initial;
 }
-
 /* Proposed items for common.css */
 
 #center-panel,
@@ -42,9 +41,9 @@ ul, li {
 }
 
 #app-layer {
+  position: relative;
   flex-direction: column;
   background-color: transparent;
-  position: relative;
 }
 
 #modals-layer,
@@ -53,33 +52,23 @@ ul, li {
   position: absolute;
   top: 0;
   left: 0;
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
-  box-sizing: border-box;
-  background-color: rgba(0, 0, 0, 0.9);
   transition: height .25s ease-out;
+  background-color: rgba(0, 0, 0, .9);
 }
-
-#settings-layer {}
-
-#app-grid-layer {}
-
-#modals-layer {}
-
-#alert-layer {}
-
 /* END proposed items from common */
-
 /* Slider Nav Tabs */
 
 .slider-nav {
   list-style: none;
-  border-bottom: 4px solid #FE9C00; 
+  border-bottom: 4px solid #fe9c00;
 }
 
 .slider-nav li {
-  text-align: center;
   flex: 1;
+  text-align: center;
 }
 
 .slider-nav li h2 {
@@ -88,33 +77,32 @@ ul, li {
 }
 
 .slider-nav li.active h2 {
-  color: #FE9C00;
+  color: #fe9c00;
 }
 
 .slider-nav .slider-tab {
   transition: border-bottom 250ms;
-  border-bottom: 8px solid rgba(0,0,0,0);
+  border-bottom: 8px solid rgba(0, 0, 0, 0);
 }
 
 .slider-nav .slider-tab.active {
   border-bottom: 8px solid #fe9c00;
 }
-
 /* Start current app-specific styles */
-
 /* .cameras-panel is the entire view for a group of cameras */
+
 .cameras-panel {
   min-width: 100%;
 }
-
 /* .camera-view is the housing for the camera-specific content and data */
+
 .camera-view {
   margin: 0;
   padding: 0;
 }
 
 .camera-view h4 {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, .7);
 }
 
 .camera-view[data-camera-type*='usb'] .camera-title .camera-type,
@@ -125,21 +113,21 @@ ul, li {
 .camera-view[data-camera-type*='analog'] .camera-title .camera-type {
   text-transform: capitalize;
 }
-
 /* .cameras-list is the housing for the individual cameras in a group */
+
 .cameras-list {
   display: flex;
   flex: 1;
   flex-wrap: wrap;
-  align-content: flex-start;
   justify-content: space-between;
   padding: 40px;
+  align-content: flex-start;
 }
-
 /* provides horizontal scrolling */
+
 .cameras-list.scrollable-x {
-  white-space: nowrap;
   display: block;
+  white-space: nowrap;
 }
 
 .cameras-list.scrollable-x .camera-view {
@@ -149,8 +137,8 @@ ul, li {
 .cameras-list.scrollable-x .camera-view:not(:last-child) {
   margin-right: 40px;
 }
-
 /* .camera-screen houses the camera screen of a single camera */
+
 .camera-screen {
   width: 450px;
   height: 250px;
@@ -160,25 +148,25 @@ ul, li {
 .camera-on h4 {
   color: #fe9c00;
 }
-
 /* .panel-minimized changes screen sizing when enalrged view is present */
+
 .panel-minimized .camera-screen {
   width: 300px;
   height: 175px;
 }
-
 /* dual views .standard-view and .reverse-view are required for the 3D flip animation */
+
 .standard-view,
 .reverse-view {
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   opacity: .7;
-  position: absolute;
-  background-size: cover;
+  background-image: url('../images/demo_still_frame.jpg');
   background-repeat: no-repeat;
-  background-image: url(../images/demo_still_frame.jpg);
+  background-size: cover;
 }
 
 .camera-on .standard-view,
@@ -188,14 +176,14 @@ ul, li {
 
 .camera-on .standard-view,
 .camera-on .reverse-view {
-  background-image: url(../images/demo.gif);
+  background-image: url('../images/demo.gif');
   background-repeat: no-repeat;
   background-size: cover;
 }
 
 .enlarged-view {
-  order: -1;
   width: 100%;
+  order: -1;
 }
 
 .enlarged-view h4 {
@@ -210,7 +198,6 @@ ul, li {
   width: 100%;
   height: 555px;
 }
-
 /* .camera-controls houses the icon controls */
 
 .camera-controls {
@@ -219,21 +206,20 @@ ul, li {
   align-items: center;
   padding: 20px 40px;
 }
-
 /* Icons */
 
 .camera-mirror.mirror-on {
   transform: scaleX(-1);
-  background-image: url(../images/mirror_icon_orange.png);
+  background-image: url('../images/mirror_icon_orange.png');
 }
 
 .camera-power {
+  position: absolute;
   width: 100%;
   height: 100%;
-  position: absolute;
-  background-position: center;
+  background-image: url('../images/power_icon_white.png');
   background-repeat: no-repeat;
-  background-image: url(../images/power_icon_white.png);
+  background-position: center;
 }
 
 .camera-on .camera-power {
@@ -246,41 +232,40 @@ ul, li {
 }
 
 .expand-icon {
-  background-image: url(../images/expand_window_icon_grey.png);
+  background-image: url('../images/expand_window_icon_grey.png');
 }
 
 .contract-icon {
-  background-image: url(../images/contract_window_icon_grey.png);
+  background-image: url('../images/contract_window_icon_grey.png');
 }
 
 .camera-mirror {
   width: 71px;
   height: 60px;
-  background-image: url(../images/mirror_icon_grey.png);
+  background-image: url('../images/mirror_icon_grey.png');
 }
-
 /* 3D Screen Flipper */
-
 /* keeps perspective of screen */
+
 .camera-screen {
   -webkit-perspective: 1000;
 }
-
 /* .flipper houses the dual screen views, .standard-view and .reverse-view */
+
 .flipper {
-  transition: transform .5s;
-  transform-style: preserve-3d;
+  position: relative;
   width: inherit;
   height: inherit;
-  position: relative;
+  transition: transform .5s;
+  transform-style: preserve-3d;
 }
-
 /* flips the screen when class is added via JS */
+
 .camera-screen.mirror-on .flipper {
   transform: rotateY(180deg);
 }
-
 /* Required to prevent visibility of .standard-view during flip */
+
 .reverse-view {
   backface-visibility: hidden;
 }
@@ -288,139 +273,137 @@ ul, li {
 .reverse-view {
   transform: rotateY(180deg);
 }
-
 /* End current app-specific styles */
-
 /* old styles from previous version of app */
 
 .panel {
+  position: absolute;
   top: 190px;
   left: 35px;
-  position: absolute;
 }
 
 #menu {
-  overflow: hidden;
   position: absolute;
-  height: 2%;
-  width: 100%;
-  bottom: 0;
   z-index: 12;
+  bottom: 0;
+  overflow: hidden;
+  width: 100%;
+  height: 2%;
 }
 
 #menu ul {
-  padding-left: 0;
+  width: 43%;
   height: 100%;
-  margin-left: 30%;
   margin-top: 0;
   margin-bottom: 0;
-  width: 43%;
+  margin-left: 30%;
+  padding-left: 0;
 }
 
 .menuItem {
-  list-style: none;
   display: block;
   float: left;
-  height: 100%;
   width: 33%;
+  height: 100%;
+  list-style: none;
 }
 
 .menuItem > img {
   display: block;
   float: left;
+  width: 75%;
   height: 100%;
   padding: 0 0 0 0;
-  width: 75%;
 }
 
 #mainDiv {
-  width: 100%;
-  height: 995px;
-  overflow-y: hidden;
-  overflow-x: hidden;
-  margin: 0;
   position: absolute;
   top: 85px;
   left: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  width: 100%;
+  height: 995px;
+  margin: 0;
 }
 
 .swipeContainer {
-  left: 2%;
-  height: 100%;
-  width: 300%;
   position: absolute;
   z-index: 10;
+  left: 2%;
+  width: 300%;
+  height: 100%;
 }
 
 .typeANALOG {
-  margin-bottom: 15%;
   margin-top: 21%;
+  margin-bottom: 15%;
 }
 
 .typeUSB {
-  margin-bottom: 12%;
   margin-top: 3%;
+  margin-bottom: 12%;
 }
 
 .typeIP {
-  margin-bottom: 12%;
   margin-top: 3%;
+  margin-bottom: 12%;
 }
 
 .divVideoSmall {
   display: table;
+  overflow: hidden;
   width: 100%;
   height: 85%;
-  overflow: hidden;
   text-align: center;
-  *vertical-align: center;
-  background-color: rgb(0, 0, 0);
   color: white;
+  background-color: rgb(0, 0, 0);
+  *vertical-align: center;
 }
 
 .divControlsSmall {
   position: absolute;
+  overflow: hidden;
   width: 100%;
   height: 100%;
-  overflow: hidden;
   text-align: center;
 }
 
 .divControlsBtnSmall {
-  height: 15%;
   width: 100%;
+  height: 15%;
   background-color: rgb(0, 0, 0);
 }
 
 .controlsEmptySmall {
-  height: 75%;
   width: 100%;
+  height: 75%;
 }
 
 .sourceNameSmall {
+  font-size: 1.5em;
   height: 25%;
   color: white;
-  font-size: 1.5em;
 }
 
 .sourceNameLarge {
+  font-size: 1.5em;
   height: 25%;
   color: white;
-  font-size: 1.5em;
 }
 
 #divViewLarge {
-  display: none;
   position: absolute;
+  z-index: 11;
   top: 25%;
-  overflow-y: hidden;
+  left: 1%;
+  display: none;
   overflow-x: hidden;
-  margin: 1%;
+  overflow-y: hidden;
   width: 96%;
   height: 49%;
-  padding: 0px;
-  left: 1%;
-  z-index: 11;
+  margin: 1%;
+  padding: 0;
 }
 
 #itemVideoLarge {
@@ -430,164 +413,163 @@ ul, li {
 
 .itemVideo {
   position: absolute;
-  left: 0px;
+  z-index: 1;
+  left: 0;
+  display: table;
   width: 100%;
   height: 100%;
-  display: table;
   text-align: center;
-  z-index: 1;
 }
 
 .empty {
-  height: 100%;
   float: left;
   width: 1.5%;
+  height: 100%;
 }
 
 .controlOnOff {
-  height: 100%;
   float: left;
   width: 17.5%;
+  height: 100%;
 }
 
 .controlLarge {
-  height: 100%;
   float: left;
   width: 17.5%;
+  height: 100%;
 }
 
 .controlFlip {
-  height: 100%;
   float: left;
   width: 17.5%;
+  height: 100%;
 }
 
 .controlTitle {
-  height: 100%;
   font-size: 1.3em;
-  text-align: center;
+  display: table;
   float: left;
   width: 43%;
-  display: table;
+  height: 100%;
+  text-align: center;
 }
 
 .controlImg {
-  height: 100%;
   width: 100%;
+  height: 100%;
 }
 
 .mirror {
-  transform: rotateY(180deg);
   -webkit-transform: rotateY(180deg);
+  transform: rotateY(180deg);
 }
 
 #mainShadowDiv {
   position: absolute;
+  z-index: 2;
   top: 0;
+  overflow-x: hidden;
+  overflow-y: hidden;
   width: 100%;
   height: 100%;
-  overflow-y: hidden;
-  overflow-x: hidden;
-  background-color: rgba(10, 50, 10, 0.7);
-  z-index: 2;
+  background-color: rgba(10, 50, 10, .7);
 }
 
 .cameraItem {
-  margin-left: 0.35%;
-  margin-right: 0.35%;
-  list-style-type: none;
-  float: left;
   position: relative;
+  float: left;
   width: 47.7%;
   height: 24%;
+  margin-right: .35%;
+  margin-left: .35%;
+  list-style-type: none;
   border-width: 2px;
-  border-color: rgb(79, 179, 27);
   border-style: solid;
+  border-color: rgb(79, 179, 27);
 }
 
 .sourceNameTxt {
-  width: 100%;
-  color: rgb(85, 180, 26);
-  display: table-cell;
-  vertical-align: middle;
   line-height: normal;
+  display: table-cell;
+  width: 100%;
+  vertical-align: middle;
+  color: rgb(85, 180, 26);
 }
 
 .unavailableButton {
-  content: url(../images/Empty.png);
+  content: url('../images/Empty.png');
 }
 
 .enableButton {
-  content: url(../images/EnableGrey_BLU.png);
+  content: url('../images/EnableGrey_BLU.png');
 }
 
 .disableButton {
-  content: url(../images/Enable_WHITE.png);
+  content: url('../images/Enable_WHITE.png');
 }
 
 .enlargeButton {
-  content: url(../images/Enlarge_WHITE.png);
+  content: url('../images/Enlarge_WHITE.png');
 }
 
 .dislargeButton {
-  content: url(../images/EnlargeGrey_BLU.png);
+  content: url('../images/EnlargeGrey_BLU.png');
 }
 
 .mirrorOnButton {
-  content: url(../images/MirrorGrey_BLU.png);
+  content: url('../images/MirrorGrey_BLU.png');
 }
 
 .mirrorOffButton {
-  content: url(../images/Mirror_WHITE.png);
+  content: url('../images/Mirror_WHITE.png');
 }
 
 .menuItem > img {
-  content: url(../images/Camera_Pg_OFF_BLU.png);
+  content: url('../images/Camera_Pg_OFF_BLU.png');
 }
 
 .menuItem > img.selectedMenu {
-  content: url(../images/Camera_Pg_ON.png);
+  content: url('../images/Camera_Pg_ON.png');
 }
 
 .inputLabelBg {
-  background-image: url(../images/Input_Label_BLU.png);
+  background-image: url('../images/Input_Label_BLU.png');
   background-size: 100% 100%;
 }
-
 /* From DNA_Cameras/css/style.css */
 
 .wrapper {
-  margin-top: 125px;
-  height: 980px;
   overflow: hidden;
+  height: 980px;
+  margin-top: 125px;
   padding: 3%;
 }
 
 form {
-  padding: 4%;
   margin: 0 auto;
-  background-color: rgba(0, 0, 0, 0.8);
-  -webkit-box-shadow: 0 0 90px rgba(135, 181, 213, 0.8);
-  text-align: center;
   margin-top: 5%;
+  padding: 4%;
+  text-align: center;
+  background-color: rgba(0, 0, 0, .8);
+  -webkit-box-shadow: 0 0 90px rgba(135, 181, 213, .8);
 }
 
 .input_form {
-  color: #fff;
   font-weight: bold;
   display: inline-block;
   width: 92%;
+  color: #fff;
 }
 
 .input_form label {
+  font-size: 1.25em;
+  display: inline;
   float: left;
+  width: 25%;
+  margin-top: 2%;
+  margin-right: 2%;
   text-align: right;
   text-transform: uppercase;
-  display: inline;
-  width: 25%;
-  margin-right: 2%;
-  margin-top: 2%;
-  font-size: 1.25em;
 }
 
 .form_narrow {
@@ -601,23 +583,14 @@ form {
 }
 
 .textBox {
-  padding-left: 1%;
+  font-family: sans-serif, 'Arial';
+  font-size: 1.5rem;
+  font-weight: bold;
   margin: 1% 0 4% 2%;
+  padding-left: 1%;
+  color: #606060;
   border: none;
   background-color: #fff;
-  color: #606060;
-  font-weight: bold;
-  font-family: sans-serif, "Arial";
-  font-size: 1.5rem;
-}
-
-.settingsIcon {
-  background: url(../images/settings_icon.png) no-repeat;
-  position: absolute;
-  left: 84%;
-  top: 1.5%;
-  width: 67px;
-  height: 67px;
 }
 
 .labelBox {
@@ -627,20 +600,20 @@ form {
 
 .inputNumberBox {
   float: left;
-  margin-top: 25px;
   width: 350px;
+  margin-top: 25px;
 }
 
 .inputNumber {
-  margin-bottom: 20px;
+  line-height: 75px;
   width: 215px;
   height: 75px;
-  line-height: 75px;
+  margin-bottom: 20px;
   padding-right: 90px;
   padding-left: 30px;
   border: none;
   background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(0, 0, 0, .2);
 }
 
 .inputNumber:focus {
@@ -649,14 +622,14 @@ form {
 
 .inputNumberBox .deleteButton {
   display: inline-block;
-  vertical-align: top;
-  margin: 18px 0 0 -73px;
-  padding: 0;
   width: 55px;
   height: 36px;
-  background-position: center center;
-  background-repeat: no-repeat;
+  margin: 18px 0 0 -73px;
+  padding: 0;
   cursor: pointer;
+  vertical-align: top;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 .loadingSpinnerHistory {
@@ -666,23 +639,23 @@ form {
 }
 
 .submitButton {
+  display: inline-block;
   height: 43px;
   margin: 20px auto 20px auto;
-  background-color: rgba(58, 174, 255, 0.3);
-  box-shadow: 0 0 2px 2px #1DA2FF inset;
-  display: inline-block;
-  text-align: center;
   padding: 0 20px;
+  text-align: center;
+  background-color: rgba(58, 174, 255, .3);
+  box-shadow: 0 0 2px 2px #1da2ff inset;
 }
 
 .submit {
-  background: none;
-  border: none;
-  text-transform: uppercase;
-  font-weight: bold;
   font-size: 28px;
-  color: rgba(255, 255, 255, 1.0);
+  font-weight: bold;
   line-height: 43px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 1.0);
+  border: none;
+  background: none;
 }
 
 .submit:active {
@@ -696,16 +669,16 @@ form {
 }
 
 table {
-  text-align: left;
   width: 100%;
-  color: #fff;
+  text-align: left;
   white-space: normal;
+  color: #fff;
 }
 
 th {
-  text-transform: uppercase;
   font-size: 20px;
   padding-right: 1%;
+  text-transform: uppercase;
 }
 
 .input_form > th {
@@ -730,24 +703,24 @@ td {
 }
 
 .inputs {
-  padding: 2% 4%;
+  line-height: 1.25em;
   display: inline;
   float: left;
   width: 42%;
+  padding: 2% 4%;
   border: none;
-  line-height: 1.25em;
 }
 
 input.button {
+  font-size: 1.15em;
   width: 120px;
   height: 40px;
+  margin-bottom: 8%;
+  margin-left: 2%;
+  text-transform: uppercase;
+  color: #fff;
   border: none;
   background-color: rgb(28, 90, 132);
-  color: #ffffff;
-  text-transform: uppercase;
-  font-size: 1.15em;
-  margin-left: 2%;
-  margin-bottom: 8%;
 }
 
 input.button:visited {
@@ -760,10 +733,10 @@ input.button:active {
 }
 
 .action_buttons_color {
-  background-color: rgb(28, 90, 132);
   width: 100%;
   height: 100%;
   border: none;
+  background-color: rgb(28, 90, 132);
 }
 
 textarea {
@@ -771,15 +744,14 @@ textarea {
 }
 
 textarea > input[type=text] {
+  font-size: 1.25rem;
+  font-weight: bold;
   width: 100%;
   height: 100%;
+  color: #202020;
   border: none;
   background-color: #fff;
-  color: #202020;
-  font-weight: bold;
-  font-size: 1.25rem;
 }
-
 /*.input_form textarea {
     height: 100%;
     font-weight: bold;
@@ -795,69 +767,69 @@ textarea > input[type=text] {
     */
 
 .font {
-  font-weight: bold;
   font-size: 1.5em;
+  font-weight: bold;
   line-height: 1.5em;
-  color: #3D3D3D;
   padding: 10px;
+  color: #3d3d3d;
 }
 
 #overlay {
   position: fixed;
+  z-index: 4;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  opacity: .8;
   background: #000;
-  opacity: 0.8;
-  z-index: 4;
 }
 
 .modal {
   position: absolute;
+  z-index: 5;
   top: 38%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 5;
   width: 35%;
   margin: 0 auto;
+  transform: translate(-50%, -50%);
 }
 
 .modal > form {
   position: absolute;
-  padding: 4% 4% 15% 4%;
   margin: 0 auto;
-  background-color: rgba(0, 0, 0, 0.8);
-  -webkit-box-shadow: 0 0 90px rgba(135, 181, 213, 0.8);
+  padding: 4% 4% 15% 4%;
   text-align: center;
+  background-color: rgba(0, 0, 0, .8);
+  -webkit-box-shadow: 0 0 90px rgba(135, 181, 213, .8);
 }
 
 p {
   font-size: 1.25em;
-  color: #fff;
-  text-align: left;
   margin-left: 5%;
   padding: 8%;
+  text-align: left;
+  color: #fff;
 }
 
 .x_graphic_modal {
-  background: url(/images/X_graphic.png) no-repeat left top;
   width: 35px;
   height: 24px;
+  background: url('/images/X_graphic.png') no-repeat left top;
 }
 
 .x_graphic_modal:active {
-  background: url(/images/X_graphic_rollover.png) no-repeat left top;
+  background: url('/images/X_graphic_rollover.png') no-repeat left top;
 }
 
 .submit_button {
-  height: 41%;
   width: 70%;
-  background-color: #245f88;
-  color: rgb(128, 203, 255);
-  text-transform: uppercase;
-  border: 2px solid rgba(128, 203, 255, 1);
+  height: 41%;
   padding: 2%;
+  text-transform: uppercase;
+  color: rgb(128, 203, 255);
+  border: 2px solid rgba(128, 203, 255, 1);
+  background-color: #245f88;
 }
 
 .submit_button:active {
@@ -867,19 +839,19 @@ p {
 }
 
 .wifiElement {
-  padding: 20px 0;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
   overflow: hidden;
-  white-space: nowrap;
+  padding: 20px 0;
   cursor: pointer;
+  white-space: nowrap;
   text-transform: uppercase;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
 }
 
 .wifiElement .wifiElementInfoBox {
-  width: 495px;
   display: block;
   float: left;
+  width: 495px;
 }
 
 .wifiElement .wifiElementSubtitle {
@@ -887,10 +859,10 @@ p {
 }
 
 .wifiElement .wifiElementButton {
+  top: 26px;
   display: block;
   float: right;
   width: 180px;
-  top: 26px;
 }
 
 .toggleButton {
@@ -901,20 +873,20 @@ p {
 .toggleButtonBackground {
   width: 100%;
   height: 100%;
-  opacity: 0.5;
+  opacity: .5;
 }
 
 .toggleButton .toggleButtonText {
-  position: relative;
-  text-align: center;
-  top: -43px;
   line-height: 43px;
+  position: relative;
+  top: -43px;
+  text-align: center;
 }
 
 .subPanelToggleButton {
   position: absolute;
-  right: 20px;
   top: 20px;
+  right: 20px;
 }
 
 .subPanelToggleButtonWide {
@@ -923,22 +895,21 @@ p {
 
 .buttonsArea {
   width: 680px;
-  margin-top: 20px;
   min-height: 43px;
+  margin-top: 20px;
 }
 
 .wifiRefreshButton {
-  width: 180px;
   float: left;
+  width: 180px;
 }
 
 .addNetworkButton {
-  width: 180px;
   float: right;
+  width: 180px;
 }
 
 .bluetoothRefreshButton {
   width: 180px;
   margin: 0 auto;
 }
-
