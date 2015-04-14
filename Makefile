@@ -1,6 +1,6 @@
 PROJECT = DNA_Cameras
 INSTALL_FILES = images js icon.png index.html templates.html
-WRT_FILES = DNA_common css icon.png index.html templates.html setup config.xml js manifest.json images
+WRT_FILES = common-app css icon.png index.html templates.html setup config.xml js manifest.json images
 VERSION := 0.0.1
 PACKAGE = $(PROJECT)-$(VERSION)
 
@@ -11,7 +11,7 @@ TIZEN_IP=TizenVTC
 endif
 
 wgtPkg: clean
-	cp -rf ../DNA_common .
+	cp -rf ../common-app .
 	zip -r $(PROJECT).wgt $(WRT_FILES)
 
 config:
@@ -50,4 +50,4 @@ all:
 
 clean:
 	-rm $(PROJECT).wgt
-	-rm -rf DNA_common
+	-rm -rf common-app
