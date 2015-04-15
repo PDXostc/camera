@@ -59,6 +59,7 @@ li {
   background-color: rgba(0, 0, 0, .9);
 }
 /* END proposed items from common */
+
 /* Slider Nav Tabs */
 
 .slider-nav {
@@ -88,6 +89,32 @@ li {
 .slider-nav .slider-tab.active {
   border-bottom: 8px solid #fe9c00;
 }
+
+.slider-tab-name {
+  position: relative;
+}
+
+.active-camera-indicator {
+  background-color: #53b5ce;
+  width: 2em;
+  height: 2em;
+  font-size: 2rem;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  position: absolute;
+  top: 0;
+  right: -1.5em;
+  font-weight: 700;
+  content: "";
+  border: 4px solid black;
+}
+
+.active-camera-indicator.indicator-on {
+  display: flex;
+}
+
 /* Start current app-specific styles */
 /* .cameras-panel is the entire view for a group of cameras */
 

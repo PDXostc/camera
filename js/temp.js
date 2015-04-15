@@ -37,8 +37,8 @@ function loadCameras(cameraType, count) {
       cameraId: i
     });
 
-    targetPanelId = "#" + cameraType + "-cameras"
-    targetList = $(targetPanelId).find(".cameras-list");
+    var targetPanelId = "#" + cameraType + "-cameras"
+    var targetList = $(targetPanelId).find(".cameras-list");
     cameraView.addTo(targetList);
   };
 };
@@ -53,10 +53,26 @@ function setActiveTab(tabID) {
   $(tab).addClass("active");
 };
 
+var activeCameraNumber = function() {
+	return activeCamera().dataset.cameraId;
+};
+
+function loadActiveCameraId() {
+	console.log("loadActiveCameraId");
+	var activeIndicator = activeCameraTab().querySelector(".active-camera-indicator");
+	activeIndicator.innerText = activeCameraNumber();
+};
+
+function showActiveCameraIndicator() {
+	console.log("showActiveCameraIndicator");
+	loadActiveCameraId();
+	$(activeCameraTab()).find(".active-camera-indicator").removeClass("hidden").addClass("indicator-on");
+	$(activeCameraTab()).siblings().find(".active-camera-indicator").addClass("hidden").removeClass("indicator-on");
+};
+
 function scrollToPanel(panel) {
   var sliderParent = $("#cameras-slider");
   var currentPosition = sliderParent.scrollLeft();
-  console.log("panel", panel);
   var panelPosition = $(panel).position().left;
   var leftScroll = currentPosition + panelPosition;
   sliderParent.animate({
@@ -65,7 +81,9 @@ function scrollToPanel(panel) {
 };
 
 var activeCameraTab = function() {
-	var activeTabId = $(activeCamera()).data().cameraType + "-tab"
+	// activeCamera() returns null when powering down
+	var activeTabId = activeCamera().dataset.cameraType + "-tab";
+	console.log("activeTabId", activeTabId);
 	return document.getElementById(activeTabId);
 };
 
@@ -101,39 +119,47 @@ function touchSlidePanel() {
 
 var enlargedCamera = function() {
   return document.getElementById("enlarged-view");
-}
+};
 
 var activeCamera = function() {
   return document.querySelector(".camera-on");
-}
+};
 
 var selectedCameraActive = function(selectedCamera) {
-  var enlargedView = $("#enlarged-view");
+  var enlargedView = $("#enlarged-view").find(".camera-view");
   var typeMatch = selectedCamera.data().cameraType === enlargedView.data().cameraType;
+  console.log("selectedCamera.cameraType ::", selectedCamera.data().cameraType);
+  console.log("enlargedView.cameraType ::", enlargedView.data().cameraType);
   var idMatch = selectedCamera.data().cameraId === enlargedView.data().cameraId;
+  console.log("selectedCamera.cameraId ::", selectedCamera.data().cameraId);
+  console.log("enlargedView.cameraId ::", enlargedView.data().cameraId);
+  console.log("typeMatch", typeMatch);
+  console.log("idMatch", idMatch);
   return typeMatch && idMatch;
-}
+};
 
 function toggleOffActive() {
   $(".camera-on").removeClass("camera-on");
 };
 
-function toggleOnCameras(cameras) {
-  cameras.addClass("camera-on");
-}
+function toggleCameras(cameras) {
+  $(cameras).toggleClass("camera-on");
+};
 
 function resetMirroring() {
   $(enlargedCamera).find(".mirror-on").removeClass("mirror-on");
-}
+};
 
 function powerCamera(camera) {
-  cameraView = $(camera).closest(".camera-view");
-  var cameraScreens = generateCameraSelector(cameraView)
+  var cameraView = $(camera).closest(".camera-view");
+  var cameraScreens = generateCameraSelector(cameraView);
   if (!selectedCameraActive(cameraView)) {
+  	console.log("Inside if");
     toggleOffActive();
     resetMirroring();
   };
-  toggleOnCameras(cameraScreens);
+  toggleCameras(cameraScreens);
+  showActiveCameraIndicator();
 };
 
 function expandCamera(camera) {
@@ -148,10 +174,10 @@ function expandCamera(camera) {
 };
 
 function contractCamera() {
+	console.log("contractCamera");
   $("#enlarged-view .camera-view").empty();
   $("#enlarged-view").toggleClass("hidden");
   $(".cameras-panel").toggleClass("panel-minimized");
-  console.log(activeCameraTab());
   switchPanels(activeCameraTab());
 };
 
@@ -163,7 +189,7 @@ function generateCameraSelector(camera) {
   var cameraData = camera.data();
   var typeFilter = "[data-camera-type='" + cameraData.cameraType + "']";
   var idFilter = "[data-camera-id='" + cameraData.cameraId + "']";
-  return $(".camera-view" + typeFilter + idFilter);
+  return ".camera-view" + typeFilter + idFilter;
 };
 
 function mirrorCameraView(touchNode) {
