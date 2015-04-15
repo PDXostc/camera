@@ -43,7 +43,7 @@ function loadCameras(cameraType, count) {
   };
 };
 
-function getCameraId(cameraType) {
+function getCameraPanelId(cameraType) {
   return cameraType + "-cameras";
 };
 
@@ -56,6 +56,7 @@ function setActiveTab(tabID) {
 function scrollToPanel(panel) {
   var sliderParent = $("#cameras-slider");
   var currentPosition = sliderParent.scrollLeft();
+  console.log("panel", panel);
   var panelPosition = $(panel).position().left;
   var leftScroll = currentPosition + panelPosition;
   sliderParent.animate({
@@ -63,9 +64,15 @@ function scrollToPanel(panel) {
   }, 250);
 };
 
+var activeCameraTab = function() {
+	var activeTabId = $(activeCamera()).data().cameraType + "-tab"
+	return document.getElementById(activeTabId);
+};
+
+// tab argument is a JS object
 function setActivePanel(tab) {
   var cameraType = $(tab).data("tabid");
-  var camerasPanelId = getCameraId(cameraType);
+  var camerasPanelId = getCameraPanelId(cameraType);
   $(camerasPanelId).siblings().removeClass("active");
   $(camerasPanelId).addClass("active");
   // Slides selected panel into view
@@ -73,6 +80,7 @@ function setActivePanel(tab) {
   scrollToPanel(panel);
 };
 
+// tab argument is a JS object
 function switchPanels(tab) {
   setActiveTab(tab.id);
   setActivePanel(tab);
@@ -91,14 +99,18 @@ function touchSlidePanel() {
   setActiveTab(tabID);
 };
 
+var enlargedCamera = function() {
+  return document.getElementById("enlarged-view");
+}
+
 var activeCamera = function() {
-  return document.getElementById("active-camera");
+  return document.querySelector(".camera-on");
 }
 
 var selectedCameraActive = function(selectedCamera) {
-  var activeCameraView = $(activeCamera).find(".camera-view");
-  var typeMatch = selectedCamera.data().cameraType === activeCameraView.data().cameraType;
-  var idMatch = selectedCamera.data().cameraId === activeCameraView.data().cameraId;
+  var enlargedView = $("#enlarged-view");
+  var typeMatch = selectedCamera.data().cameraType === enlargedView.data().cameraType;
+  var idMatch = selectedCamera.data().cameraId === enlargedView.data().cameraId;
   return typeMatch && idMatch;
 }
 
@@ -111,12 +123,12 @@ function toggleOnCameras(cameras) {
 }
 
 function resetMirroring() {
-  $(activeCamera).find(".mirror-on").removeClass("mirror-on");
+  $(enlargedCamera).find(".mirror-on").removeClass("mirror-on");
 }
 
 function powerCamera(camera) {
   cameraView = $(camera).closest(".camera-view");
-  var cameraScreens = generateCameraSelector(cameraView);
+  var cameraScreens = generateCameraSelector(cameraView)
   if (!selectedCameraActive(cameraView)) {
     toggleOffActive();
     resetMirroring();
@@ -128,22 +140,23 @@ function expandCamera(camera) {
   var cameraView = $(camera).closest(".camera-view");
   var enlargement = cameraView.clone();
   enlargement.addClass("enlarged-view");
-  enlargement.id += "-enlarged";
-  $("#active-camera .camera-view").replaceWith(enlargement);
+  $("#enlarged-view .camera-view").replaceWith(enlargement);
   if (!inEnlargedView()) {
     $(".cameras-panel").addClass("panel-minimized");
-    $("#active-camera").toggleClass("hidden");
+    $("#enlarged-view").toggleClass("hidden");
   }
 };
 
 function contractCamera() {
-  $("#active-camera .camera-view").empty();
-  $("#active-camera").toggleClass("hidden");
+  $("#enlarged-view .camera-view").empty();
+  $("#enlarged-view").toggleClass("hidden");
   $(".cameras-panel").toggleClass("panel-minimized");
+  console.log(activeCameraTab());
+  switchPanels(activeCameraTab());
 };
 
 var inEnlargedView = function() {
-  return window.getComputedStyle(activeCamera()).display !== "none";
+  return window.getComputedStyle(enlargedCamera()).display !== "none";
 };
 
 function generateCameraSelector(camera) {
@@ -154,7 +167,7 @@ function generateCameraSelector(camera) {
 };
 
 function mirrorCameraView(touchNode) {
-  var cameraView = $(touchNode).closest("#active-camera").find(".camera-view");
+  var cameraView = $(touchNode).closest("#enlarged-view").find(".camera-view");
   var cameras = generateCameraSelector(cameraView);
   $(cameras).find(".camera-screen").toggleClass("mirror-on");
   $(cameras).siblings().find(".camera-mirror").toggleClass("mirror-on");
