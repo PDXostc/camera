@@ -27,7 +27,12 @@ function loadCameraTitle(cameraView, options) {
   content.querySelector(".camera-view .camera-title .camera-type").innerText = options.cameraType;
 };
 
+// loads any number of cameras by type. Eg. loadCameras("usb", 6);
 function loadCameras(cameraType, count) {
+  var targetPanelId = "#" + cameraType + "-cameras"
+  var targetList = $(targetPanelId).find(".cameras-list");
+  if (count > 0)
+    targetList.empty();
   for (var i = 1; i <= count; i++) {
     var cameraView = new Template('camera-view-template');
     setCameraDataType(cameraView, cameraType);
@@ -36,9 +41,6 @@ function loadCameras(cameraType, count) {
       cameraType: cameraType,
       cameraId: i
     });
-
-    var targetPanelId = "#" + cameraType + "-cameras"
-    var targetList = $(targetPanelId).find(".cameras-list");
     cameraView.addTo(targetList);
   };
 };
@@ -58,13 +60,11 @@ var activeCameraNumber = function() {
 };
 
 function loadActiveCameraId() {
-	console.log("loadActiveCameraId");
 	var activeIndicator = activeCameraTab().querySelector(".active-camera-indicator");
 	activeIndicator.innerText = activeCameraNumber();
 };
 
 function showActiveCameraIndicator() {
-	console.log("showActiveCameraIndicator");
 	loadActiveCameraId();
 	$(activeCameraTab()).find(".active-camera-indicator").removeClass("hidden").addClass("indicator-on");
 	$(activeCameraTab()).siblings().find(".active-camera-indicator").addClass("hidden").removeClass("indicator-on");
@@ -81,9 +81,7 @@ function scrollToPanel(panel) {
 };
 
 var activeCameraTab = function() {
-	// activeCamera() returns null when powering down
 	var activeTabId = activeCamera().dataset.cameraType + "-tab";
-	console.log("activeTabId", activeTabId);
 	return document.getElementById(activeTabId);
 };
 
@@ -128,13 +126,7 @@ var activeCamera = function() {
 var selectedCameraActive = function(selectedCamera) {
   var enlargedView = $("#enlarged-view").find(".camera-view");
   var typeMatch = selectedCamera.data().cameraType === enlargedView.data().cameraType;
-  console.log("selectedCamera.cameraType ::", selectedCamera.data().cameraType);
-  console.log("enlargedView.cameraType ::", enlargedView.data().cameraType);
   var idMatch = selectedCamera.data().cameraId === enlargedView.data().cameraId;
-  console.log("selectedCamera.cameraId ::", selectedCamera.data().cameraId);
-  console.log("enlargedView.cameraId ::", enlargedView.data().cameraId);
-  console.log("typeMatch", typeMatch);
-  console.log("idMatch", idMatch);
   return typeMatch && idMatch;
 };
 
@@ -154,7 +146,6 @@ function powerCamera(camera) {
   var cameraView = $(camera).closest(".camera-view");
   var cameraScreens = generateCameraSelector(cameraView);
   if (!selectedCameraActive(cameraView)) {
-  	console.log("Inside if");
     toggleOffActive();
     resetMirroring();
   };
@@ -199,14 +190,21 @@ function mirrorCameraView(touchNode) {
   $(cameras).siblings().find(".camera-mirror").toggleClass("mirror-on");
 };
 
+function disableCamerasByType(type) {
+  var tabId = type + "-tab";
+  var camerasPanelId = getCameraPanelId(type);
+  var tab = document.getElementById(tabId);
+  var panel = document.getElementById(camerasPanelId);
+  $(tab).addClass("disabled");
+  $(panel).addClass("disabled");
+};
+
 var tempInit = function() {
-  loadCameras("usb", 6);
-  loadCameras("analog", 4);
-  loadCameras("ip", 6);
-  // Clears timer for development only
-  setTimeout(function() {
-    clearInterval(uiUpdateTimer)
-  }, 1000);
+  loadCameras("usb", 0);
+  loadCameras("analog", 0);
+  loadCameras("ip", 1);
+  disableCamerasByType("usb");
+  disableCamerasByType("analog");
 };
 
 $(document).ready(tempInit);
@@ -220,12 +218,8 @@ $(document).on("touchend", "#cameras-slider", function() {
   touchSlidePanel();
 });
 // Power Toggle
-$(document).on("click", ".camera-screen", function() {
+$(document).on("click", ".camera-power", function() {
   powerCamera(this);
-  expandCamera(this);
-});
-// Clone and Expand camera view
-$(document).on("click", ".expand-icon", function() {
   expandCamera(this);
 });
 // Removes expanded view
@@ -236,6 +230,9 @@ $(document).on("click", ".contract-icon", function() {
 $(document).on("click", ".camera-mirror", function() {
   mirrorCameraView(this);
 });
-
+// Expand camera view
+$(document).on("click", ".camera-expand", function() {
+  expandCamera(this);
+});
 
 // EOF

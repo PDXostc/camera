@@ -87,6 +87,7 @@ common: /opt/usr/apps/common-apps
 
 dev-common: ../common-app
 	cp -rf ../common-app ./DNA_common
+	rm -rf DNA_common/.git
 
 ../common-app:
 	#@echo "Please checkout Common Assets"
